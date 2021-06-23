@@ -1,6 +1,9 @@
 package dev.adventure.entities;
+import org.jetbrains.annotations.NotNull;
 
-public class User {
+import java.lang.Comparable;
+
+public class User implements Comparable<User>{
     private int id;
     private String occupation;
     private String name;
@@ -9,7 +12,7 @@ public class User {
     private String passwordSalt;
     private int planId;
 
-    public User() {
+    public User(){
     }
 
     public User(int id, String occupation, String name, String username, String passwordHash, String passwordSalt, int planId) {
@@ -89,5 +92,16 @@ public class User {
                 ", passwordSalt='" + passwordSalt + '\'' +
                 ", planId=" + planId +
                 '}';
+    }
+
+    @Override
+    public int compareTo(@NotNull User o) {
+        if(this.id < o.getId()){
+            return -1;
+        }
+        else if(this.id > o.getId()){
+            return 1;
+        }
+        return 0;
     }
 }
