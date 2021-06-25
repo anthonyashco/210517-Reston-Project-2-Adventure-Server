@@ -24,6 +24,13 @@
             <scope>test</scope>
         </dependency>
 
+        // this works with mockito
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>1.9.10</version>
+        </dependency>
+
         <dependency>
             <groupId>io.javalin</groupId>
             <artifactId>javalin</artifactId>
