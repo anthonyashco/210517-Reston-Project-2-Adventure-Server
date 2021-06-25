@@ -15,7 +15,7 @@ public interface PlanDao {
     Plan getPlanByID(int planID);
 
     List<Plan> getAllPlans();
-
+/* part of stretch goals
     // update
 
     Plan updatePlan(Plan plan);
@@ -23,5 +23,5 @@ public interface PlanDao {
     // delete
     
     boolean deletePlanByID(int planID);
-
+*/
 }
