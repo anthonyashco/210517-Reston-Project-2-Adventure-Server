@@ -24,10 +24,10 @@ public class App {
 
         app.get("/hello",claimController.hello );
 
-        // get /books
+        // get
         app.get("/claims", claimController.getAllClaims);
 
-        // post /books
+        // post
         app.post("/claim",claimController.createClaim);
 
 

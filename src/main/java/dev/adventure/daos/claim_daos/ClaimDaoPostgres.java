@@ -21,6 +21,7 @@ public class ClaimDaoPostgres implements ClaimDao {
             ps.setString(3, claim.getReason());
             ps.setString(4, claim.getStatus());
             ps.setInt(5,claim.getUserId());
+            ps.execute();
             ResultSet rs = ps.getGeneratedKeys();
             rs.next();
             int key = rs.getInt(1);
@@ -44,7 +45,7 @@ public class ClaimDaoPostgres implements ClaimDao {
                 Claim claim = new Claim(
                         rs.getInt("id"),
                         rs.getLong("claim_date"),
-                        rs.getFloat("claim_amount"),
+                        rs.getFloat("amount"),
                         rs.getString("reason"),
                         rs.getString("status"),
                         rs.getInt("user_id")

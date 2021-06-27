@@ -1,12 +1,12 @@
 package dev.adventure.entities;
 
-public class Claim {
-    private  int id;
-    private  long date;
+public class Claim implements Comparable<Claim>{
+    private  int id=0;
+    private  long date=0;
     private  float amount;
     private  String reason;
-    private  String status;
-    private  int userId;
+    private  String status="pending";
+    private  int userId=0;
 
     public Claim() {
     }
@@ -78,5 +78,18 @@ public class Claim {
                 ", userId=" + userId +
                 '}';
     }
+    @Override
+    public int compareTo(Claim o) {
+        if (this.id>o.id){
+            return 1;
+        } else if (this.id < o.id){
+            return -1;
+        } else {
+            return 0;
+        }
+    }
+
 }
+
+
        

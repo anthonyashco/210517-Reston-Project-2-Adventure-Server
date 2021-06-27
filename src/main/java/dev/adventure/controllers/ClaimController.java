@@ -21,18 +21,18 @@ public class ClaimController {
         this.claimService = claimService;
     }
 
-    public Handler hello = (ctx) -> {System.out.println("Hello world");
-    String s ="hello";
-    s=gson.toJson(s);
-    ctx.result(s);};
+    public Handler hello = (ctx) -> {ctx.result("hello");};
 
     public Handler createClaim = (ctx) -> {
         try {
             Claim claim = this.gson.fromJson(ctx.body(), Claim.class);
-            int user_id = claim.getUserId();
+            if (claim == null) {
+                throw new ResourceNotFound("Can not create claim with this data with empty body");
+           }
+            int user_id= claim.getUserId();
             claim = this.claimService.registerClaim(claim);
             if (claim == null) {
-                throw new ResourceNotFound("Can not create claim with the user_id : " + user_id);
+                throw new ResourceNotFound("Can not create claim with this user_id :"+user_id);
             }
             String claimJSON = gson.toJson(claim);
             ctx.status(201);
@@ -48,7 +48,7 @@ public class ClaimController {
         try {
             List<Claim> claims = this.claimService.retriveAllClaims();
             if (claims.size() == 0) {
-                throw new ResourceNotFound("There is not any claim exsist. ");
+                throw new ResourceNotFound("There is not any claim exsist in data base at this moment. ");
             }
             String claimJSON = this.gson.toJson(claims);
             ctx.result(claimJSON);
