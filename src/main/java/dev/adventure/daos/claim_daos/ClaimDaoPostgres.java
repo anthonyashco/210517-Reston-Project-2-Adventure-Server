@@ -35,12 +35,12 @@ public class ClaimDaoPostgres implements ClaimDao {
 
 
     @Override
-    public List<Claim> getAllClaims() {
+    public ArrayList<Claim> getAllClaims() {
         try (Connection connection = ConnectionUtil.createConnection()) {
             String sql = "select * from claim";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            List<Claim> claims = new ArrayList<>();
+            ArrayList<Claim> claims = new ArrayList<>();
             while (rs.next()) {
                 Claim claim = new Claim(
                         rs.getInt("id"),

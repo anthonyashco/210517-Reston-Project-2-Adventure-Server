@@ -25,7 +25,7 @@ public class ClaimDaoTest {
    static Claim claimTest5= new Claim(0,790,600,"No Reason","Rejected",0);
 
    static int n= claimDao.getAllClaims().size();
-   static  List<Claim> claims = new ArrayList<>();
+   static  ArrayList<Claim> claims = new ArrayList<>();
 
    @BeforeClass
    public static void makeSamples() {
@@ -65,11 +65,34 @@ public class ClaimDaoTest {
    }
    @Test(priority = 2)
    void getAllClaim() {
+
       int m= claimDao.getAllClaims().size();
       Assert.assertEquals(m-n,3);
       Assert.assertTrue(claims.contains(claimTest1));
       Assert.assertTrue(claims.contains(claimTest2));
       Assert.assertTrue(claims.contains(claimTest3));
+
+      boolean test1=false;
+      boolean test2=false;
+      boolean test3=false;
+
+      for (Claim claim:claimDao.getAllClaims()){
+
+         if (claim.getId()==claimTest1.getId()){
+
+            test1=true;
+         }
+         if (claim.getId()==claimTest1.getId()){
+
+            test2=true;
+         }
+         if (claim.getId()==claimTest1.getId()){
+
+            test3=true;
+         }
+      }
+      Assert.assertTrue(test1 && test2 && test3);
+      Assert.assertTrue(claimDao.getAllClaims() != null);
    }
 
 }

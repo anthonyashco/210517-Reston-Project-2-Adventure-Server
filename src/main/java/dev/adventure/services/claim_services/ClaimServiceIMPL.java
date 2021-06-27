@@ -4,6 +4,7 @@ import dev.adventure.daos.claim_daos.ClaimDao;
 import dev.adventure.daos.claim_daos.ClaimDaoPostgres;
 import dev.adventure.entities.Claim;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClaimServiceIMPL implements ClaimService {
@@ -19,7 +20,7 @@ public class ClaimServiceIMPL implements ClaimService {
     }
 
     @Override
-    public List<Claim> retriveAllClaims() {
+    public ArrayList<Claim> retriveAllClaims() {
         return this.claimDao.getAllClaims();
     }
 }
