@@ -1,6 +1,7 @@
 package dev.adventure.daos;
 
 import dev.adventure.entities.Plan;
+import dev.adventure.exceptions.EntityNotFoundException;
 import dev.adventure.utils.ConnectionUtil;
 
 import java.sql.*;
@@ -48,8 +49,7 @@ public class PlanDaoImp implements PlanDao {
             return plan;
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
-            System.out.println("There was an error trying to get the plan");
-            return null;
+            throw new EntityNotFoundException("There was an error trying to get the plan");
         }
     }
 
@@ -73,8 +73,7 @@ public class PlanDaoImp implements PlanDao {
             return plans;
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
-            System.out.println("There was an error trying to get the plans");
-            return null;
+            throw new EntityNotFoundException("There was an error trying to get the plans");
         }
 
     }
