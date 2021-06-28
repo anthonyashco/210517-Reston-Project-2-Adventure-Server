@@ -15,49 +15,29 @@ import io.javalin.Javalin;
 public class App {
     public static void main(String[] args) {
 
-        Javalin app = Javalin.create(config ->{
-           config.enableCorsForAllOrigins();
-           config.enableDevLogging();
-        });
-
-        PlanDao planDao = new PlanDaoImp();
-        PlanService planService = new PlanServiceImp(planDao);
-        PlanController planController = new PlanController(planService);
-
-        app.get("/plans", planController.getAllPlans);
-
-        app.get("plans/:id", planController.getPlanByID);
-
-        app.start();
-
-    }
-
-    public static String hello(){
-        return "Hello world";
-    }
-
-    public static void main(String[] args) {
         Javalin app = Javalin.create(config -> {
             config.enableCorsForAllOrigins();
             config.enableDevLogging();
         });
 
+        PlanDao planDao = new PlanDaoImp();
+        PlanService planService = new PlanServiceImp(planDao);
+        PlanController planController = new PlanController(planService);
         ClaimDao claimDao = new ClaimDaoPostgres();
         ClaimService claimService = new ClaimServiceIMPL(claimDao);
         ClaimController claimController = new ClaimController(claimService);
 
-        app.get("/hello",claimController.hello );
+        app.get("/hello",claimController.hello);
 
-        // get
         app.get("/claims", claimController.getAllClaims);
 
-        // post
-        app.post("/claim",claimController.createClaim);
+        app.post("/claims",claimController.createClaim);
 
+        app.get("/plans", planController.getAllPlans);
 
-        app.start(); // defaults to port 7000
+        app.get("/plans/:id", planController.getPlanByID);
+
+        app.start();
+
     };
-}
-
-
-
+};
