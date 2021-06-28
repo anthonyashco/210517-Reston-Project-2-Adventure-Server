@@ -1,4 +1,5 @@
 package dev.adventure.entities;
+import dev.adventure.utils.Password;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.Comparable;
@@ -22,6 +23,17 @@ public class User implements Comparable<User>{
         this.username = username;
         this.passwordHash = passwordHash;
         this.passwordSalt = passwordSalt;
+        this.planId = planId;
+    }
+
+    public User(int id, String occupation, String name, String username, String password, int planId){
+        String [] hash = Password.hashGriddle(password);
+        this.id = id;
+        this.occupation = occupation;
+        this.name = name;
+        this.username = username;
+        this.passwordHash = hash[0];
+        this.passwordSalt = hash[1];
         this.planId = planId;
     }
 
