@@ -25,7 +25,7 @@ public class ClaimDaoTest {
    static Claim claimTest5= new Claim(0,790,600,"No Reason","Rejected",0);
 
    static int n= claimDao.getAllClaims().size();
-   static  ArrayList<Claim> claims = new ArrayList<>();
+   static  ArrayList<Claim> claims = new ArrayList<Claim>();
 
    @BeforeClass
    public static void makeSamples() {

@@ -5,6 +5,8 @@ import dev.adventure.entities.Claim;
 import dev.adventure.services.claim_services.ClaimService;
 import io.javalin.http.Handler;
 import dev.adventure.exceptions.ResourceNotFound;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import com.google.gson.Gson;
@@ -46,7 +48,7 @@ public class ClaimController {
 
     public Handler getAllClaims = (ctx) -> {
         try {
-            List<Claim> claims = this.claimService.retriveAllClaims();
+            ArrayList<Claim> claims = this.claimService.retriveAllClaims();
             if (claims.size() == 0) {
                 throw new ResourceNotFound("There is not any claim exsist in data base at this moment. ");
             }
