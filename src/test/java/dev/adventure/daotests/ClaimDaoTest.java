@@ -82,11 +82,11 @@ public class ClaimDaoTest {
 
             test1=true;
          }
-         if (claim.getId()==claimTest1.getId()){
+         if (claim.getId()==claimTest2.getId()){
 
             test2=true;
          }
-         if (claim.getId()==claimTest1.getId()){
+         if (claim.getId()==claimTest3.getId()){
 
             test3=true;
          }
