@@ -52,6 +52,8 @@ public class App {
 
         app.get("/users/:id", userController.getUserById);
 
+        app.post("/users", userController.createUser);
+
         app.start();
 
     };

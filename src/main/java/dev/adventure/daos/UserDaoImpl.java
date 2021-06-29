@@ -2,6 +2,7 @@ package dev.adventure.daos;
 
 import dev.adventure.entities.User;
 import dev.adventure.utils.ConnectionUtil;
+import org.postgresql.util.PSQLException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -87,8 +88,9 @@ public class UserDaoImpl implements UserDao {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             List<User> userList = new ArrayList<>();
-            User user = new User();
+
             while (rs.next()) {
+                User user = new User();
                 user.setId(rs.getInt("id"));
                 user.setOccupation(rs.getString("occupation"));
                 user.setName(rs.getString("user_name"));
@@ -133,7 +135,6 @@ public class UserDaoImpl implements UserDao {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
             ps.execute();
-
             return true;
 
         } catch (SQLException throwables) {
