@@ -55,7 +55,7 @@ public class UserDaoTest {
 
     @Test()
     void testUpdateUserInvalid(){
-        User userInvalid = new User(0, "fake", "illegitimate", "fake", "illegitimate", 0);
+        User userInvalid = new User(0, "fake", "illegitimate", "fake", "illegitimate", "Wrongerino", 0);
         userInvalid = userDao.updateUser(userInvalid);
         Assert.assertNull(userInvalid);
 
