@@ -30,7 +30,7 @@ public class ClaimController {
             Claim claim = this.gson.fromJson(ctx.body(), Claim.class);
             if (claim == null) {
                 throw new ResourceNotFound("Can not create claim with this data with empty body");
-           }
+            }
             int user_id= claim.getUserId();
             claim = this.claimService.registerClaim(claim);
             if (claim == null) {
