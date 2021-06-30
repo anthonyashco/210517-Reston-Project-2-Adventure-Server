@@ -14,6 +14,11 @@ public class PlanServiceImp implements PlanService{
     }
 
     @Override
+    public Plan createPlan(Plan plan) {
+        return planDao.createPlan(plan);
+    }
+
+    @Override
     public Plan getPlanByID(int planID) {
         return planDao.getPlanByID(planID);
     }
@@ -22,5 +27,17 @@ public class PlanServiceImp implements PlanService{
     @Override
     public List<Plan> getAllPlans() {
         return planDao.getAllPlans();
+    }
+
+    @Override
+    public Plan updatePlan(Plan plan) {
+        Plan check = planDao.getPlanByID(plan.getPlanID());
+        return planDao.updatePlan(plan);
+    }
+
+    @Override
+    public boolean deletePlanByID(int planID) {
+        Plan check = planDao.getPlanByID(planID);
+        return planDao.deletePlanByID(planID);
     }
 }
