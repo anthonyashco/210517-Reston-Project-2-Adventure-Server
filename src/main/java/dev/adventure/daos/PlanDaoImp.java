@@ -70,6 +70,10 @@ public class PlanDaoImp implements PlanDao {
                 );
                 plans.add(plan);
             }
+            if (plans.size() == 0){
+                System.out.println("There was an error trying to get the plans");
+                throw new EntityNotFoundException("There was an error trying to get the plans");
+            }
             return plans;
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
@@ -78,15 +82,36 @@ public class PlanDaoImp implements PlanDao {
 
     }
 
-    // these methods are for stretch goals
-//    @Override
-//    public Plan updatePlan(Plan plan) {
-//        return null;
-//    }
-//
-//    @Override
-//    public boolean deletePlanByID(int planID) {
-//        return false;
-//    }
+    @Override
+    public Plan updatePlan(Plan plan) {
+        try (Connection connection = ConnectionUtil.createConnection()){
+            String sql = "update plan set plan_name = ?, plan_type = ?, deductible = ?, premium = ? where id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, plan.getName());
+            ps.setString(2, plan.getType());
+            ps.setFloat(3, plan.getDeductible());
+            ps.setFloat(4, plan.getPremium());
+            ps.setInt(5, plan.getPlanID());
+            ps.executeUpdate();
+            return plan;
+        } catch (SQLException m){
+            m.printStackTrace();
+            throw new EntityNotFoundException("There was an error trying to get the plan");
+        }
+    }
+
+    @Override
+    public boolean deletePlanByID(int planID) {
+        try (Connection connection = ConnectionUtil.createConnection()){
+            String sql = "delete from plan where id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, planID);
+            ps.execute();
+            return true;
+        } catch (SQLException m) {
+            m.printStackTrace();
+            throw new EntityNotFoundException("The plan's information could not be deleted at this time");
+        }
+    }
 
 }

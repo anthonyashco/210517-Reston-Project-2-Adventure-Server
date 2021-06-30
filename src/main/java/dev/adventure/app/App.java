@@ -1,20 +1,15 @@
 package dev.adventure.app;
 
 import dev.adventure.controllers.ClaimController;
+import dev.adventure.controllers.ManagerController;
 import dev.adventure.controllers.PlanController;
 import dev.adventure.controllers.UserController;
-import dev.adventure.daos.UserDao;
-import dev.adventure.daos.UserDaoImpl;
+import dev.adventure.daos.*;
 import dev.adventure.daos.claim_daos.ClaimDao;
 import dev.adventure.daos.claim_daos.ClaimDaoPostgres;
-import dev.adventure.daos.PlanDao;
-import dev.adventure.daos.PlanDaoImp;
-import dev.adventure.services.UserService;
-import dev.adventure.services.UserServiceImp;
+import dev.adventure.services.*;
 import dev.adventure.services.claim_services.ClaimService;
 import dev.adventure.services.claim_services.ClaimServiceIMPL;
-import dev.adventure.services.PlanService;
-import dev.adventure.services.PlanServiceImp;
 import io.javalin.Javalin;
 
 public class App {
@@ -34,6 +29,9 @@ public class App {
         UserDao userDao = new UserDaoImpl();
         UserService userService = new UserServiceImp(userDao);
         UserController userController = new UserController(userService);
+        ManagerDao managerDao = new ManagerDaoImp();
+        ManagerService managerService = new ManagerServiceImp(managerDao);
+        ManagerController managerController = new ManagerController(managerService);
 
 
         app.get("/hello",claimController.hello);
@@ -44,9 +42,25 @@ public class App {
 
         app.post("/claims",claimController.createClaim);
 
+        app.post("plans", planController.createPlan);
+
         app.get("/plans", planController.getAllPlans);
 
         app.get("/plans/:id", planController.getPlanByID);
+
+        app.put("/plans/:id", planController.updatePlan);
+
+        app.delete("/plans/:id", planController.deletePlan);
+
+        app.post("/managers", managerController.createManager);
+
+        app.get("/managers/:id", managerController.getManagerByID);
+
+        app.get("/managers", managerController.getAllManagers);
+
+        app.put("/managers/:id", managerController.updateManager);
+
+        app.delete("/managers/:id", managerController.deleteManagerByID);
 
         app.post("/login", userController.login);
 
