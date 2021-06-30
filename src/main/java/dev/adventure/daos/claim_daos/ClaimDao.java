@@ -10,5 +10,5 @@ public interface ClaimDao {
     public Claim createClaim(Claim claim);
 
     public ArrayList<Claim> getAllClaims();
-
+    public ArrayList<Claim> getAllClaimsByUserId(int user_id);
 }

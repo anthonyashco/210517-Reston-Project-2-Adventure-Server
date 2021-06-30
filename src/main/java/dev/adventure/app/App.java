@@ -40,6 +40,8 @@ public class App {
 
         app.get("/claims", claimController.getAllClaims);
 
+        app.get("/claims/:user_id", claimController.getAllClaimsByUserId);
+
         app.post("/claims",claimController.createClaim);
 
         app.get("/plans", planController.getAllPlans);
