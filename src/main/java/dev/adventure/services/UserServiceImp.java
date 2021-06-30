@@ -51,4 +51,10 @@ public class UserServiceImp implements UserService{
     public User createNewUser(User user) {
         user = userDao.createUser(user);
         return user; }
+
+    @Override
+    public User updateUser(User user) {
+        user = userDao.updateUser(user);
+        return user;
+    }
 }

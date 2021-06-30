@@ -18,4 +18,6 @@ public interface UserService {
 
     User createNewUser(User user);
 
+    User updateUser(User user);
+
 }

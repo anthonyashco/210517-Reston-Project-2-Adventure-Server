@@ -42,6 +42,7 @@ public class UserController {
             ctx.status(200);
         } catch(EntityNotFoundException e){
             e.printStackTrace();
+            ctx.status(404);
         }
     };
 
@@ -54,9 +55,22 @@ public class UserController {
     public Handler createUser = ctx->{
         String body = ctx.body();
         User user = gson.fromJson(body, User.class);
-        userService.createNewUser(user);
+        this.userService.createNewUser(user);
         ctx.result(gson.toJson(user));
         ctx.status(201);
+    };
+
+    public Handler updatePlan = ctx ->{
+        int id = Integer.parseInt(ctx.pathParam("id"));
+        int pId = Integer.parseInt(ctx.pathParam("pid"));
+        User user = this.userService.getUserById(id);
+        if(user == null) ctx.status(404);
+        else {
+            user.setPlanId(pId);
+            this.userService.updateUser(user);
+            ctx.result(gson.toJson(user));
+            ctx.status(201);
+        }
     };
 
 

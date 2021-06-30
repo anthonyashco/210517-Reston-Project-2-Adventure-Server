@@ -110,7 +110,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User updateUser(User user) {
         try (Connection connection = ConnectionUtil.createConnection()) {
-            String sql = "update \"public\".user set occupation=?, user_name=?, username=?, passwordhash=?, passwordsalt=?, plan_id=?";
+            String sql = "update \"public\".user set occupation=?, user_name=?, username=?, passwordhash=?, passwordsalt=?, plan_id=? where id=?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, user.getOccupation());
             ps.setString(2, user.getName());
@@ -118,6 +118,7 @@ public class UserDaoImpl implements UserDao {
             ps.setString(4, user.getPasswordHash());
             ps.setString(5, user.getPasswordSalt());
             ps.setInt(6, user.getPlanId());
+            ps.setInt(7,user.getId());
 
             // returns the row index or 0 for failure
             ps.executeUpdate();
