@@ -67,6 +67,7 @@ public class ManagerController {
             int id = Integer.parseInt(ctx.pathParam("id"));
             Gson gson = new Gson();
             Manager manager = gson.fromJson(ctx.body(), Manager.class);
+            manager.setId(id);
             this.managerService.updateManger(manager);
             String managerJSON = gson.toJson(manager);
             ctx.result(managerJSON);
