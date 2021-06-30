@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import dev.adventure.entities.User;
 import dev.adventure.exceptions.EntityNotFoundException;
 import dev.adventure.services.UserService;
+import dev.adventure.utils.Password;
 import io.javalin.http.Handler;
 
 import java.util.List;
@@ -54,7 +55,14 @@ public class UserController {
 
     public Handler createUser = ctx->{
         String body = ctx.body();
+        // Creating a map object to grab the password, then hash and salt it
+        Map<String, String> password = gson.fromJson(body, Map.class);
+        String [] hash = Password.hashGriddle(password.get("password"));
+
+        // Create a user object and update the values
         User user = gson.fromJson(body, User.class);
+        user.setPasswordHash(hash[0]);
+        user.setPasswordSalt(hash[1]);
         this.userService.createNewUser(user);
         ctx.result(gson.toJson(user));
         ctx.status(201);
