@@ -40,6 +40,8 @@ public class App {
 
         app.get("/claims", claimController.getAllClaims);
 
+        app.get("/claims/:user_id", claimController.getAllClaimsByUserId);
+
         app.post("/claims",claimController.createClaim);
 
         app.get("/plans", planController.getAllPlans);
@@ -51,10 +53,6 @@ public class App {
         app.get("/users", userController.getAllUsers);
 
         app.get("/users/:id", userController.getUserById);
-
-        app.post("/users", userController.createUser);
-
-        app.put("/users/:id/plans/:pid", userController.updatePlan);
 
         app.start();
 

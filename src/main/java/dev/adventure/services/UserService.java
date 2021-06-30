@@ -16,8 +16,4 @@ public interface UserService {
 
     List<User> getAllUsers();
 
-    User createNewUser(User user);
-
-    User updateUser(User user);
-
 }

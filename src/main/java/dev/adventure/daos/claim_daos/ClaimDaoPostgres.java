@@ -59,5 +59,35 @@ public class ClaimDaoPostgres implements ClaimDao {
         }
 
     }
+    @Override
+    public ArrayList<Claim> getAllClaimsByUserId(int user_id) {
+        try (Connection connection = ConnectionUtil.createConnection()) {
+            String sql = "select * from claim where user_id=?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1,user_id);
+            ResultSet rs = ps.executeQuery();
+            ArrayList<Claim> claims = new ArrayList<Claim>();
+            while (rs.next()) {
+                Claim claim = new Claim(
+                        rs.getInt("id"),
+                        rs.getLong("claim_date"),
+                        rs.getFloat("amount"),
+                        rs.getString("reason"),
+                        rs.getString("status"),
+                        rs.getInt("user_id")
+                );
+                claims.add(claim);
+            }
+            return claims;
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+            return null;
+        }
+
     }
+
+
+
+
+}
 

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClaimServiceIMPL implements ClaimService {
-    ClaimDao claimDao= new ClaimDaoPostgres();
+    ClaimDao claimDao;
 
     public ClaimServiceIMPL(ClaimDao claimDao) {
         this.claimDao = claimDao;
@@ -23,4 +23,11 @@ public class ClaimServiceIMPL implements ClaimService {
     public ArrayList<Claim> retriveAllClaims() {
         return this.claimDao.getAllClaims();
     }
+
+    @Override
+    public ArrayList<Claim> getAllClaimsByUserId(int user_id){
+        return this.claimDao.getAllClaimsByUserId(user_id);
+    }
+
 }
+

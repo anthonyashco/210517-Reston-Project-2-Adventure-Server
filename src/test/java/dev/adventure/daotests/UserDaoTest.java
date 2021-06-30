@@ -27,12 +27,6 @@ public class UserDaoTest {
         Assert.assertEquals(user.getName(),"TestyMcTest");
     }
 
-    @Test()
-    void testGetUserByIdInvalid(){
-        User user = userDao.readUserById(99999);
-        Assert.assertNull(user);
-    }
-
     @Test(dependsOnMethods = "testCreateUser")
     void testGetUserByUsername(){
         User user = userDao.readUserByUsername(testUser.getUsername());
@@ -40,25 +34,11 @@ public class UserDaoTest {
 
     }
 
-    @Test()
-    void testGetUserByUsernameInvalid(){
-        User user = userDao.readUserByUsername("ASDFASDIOPHGAPSDGPIASHDGPASDGIOAHSDGPOIHADSPGIOASHDGPIASHDGPIOASDHGAOPSDGH");
-        Assert.assertNull(user);
-    }
-
     @Test(dependsOnMethods = {"testGetUserByUsername","testGetUser"})
     void testUpdateUser(){
         testUser.setName("UpdateTest");
         userDao.updateUser(testUser);
         Assert.assertEquals(testUser.getName(),"UpdateTest");
-    }
-
-    @Test()
-    void testUpdateUserInvalid(){
-        User userInvalid = new User(0, "fake", "illegitimate", "fake", "illegitimate", 0);
-        userInvalid = userDao.updateUser(userInvalid);
-        Assert.assertNull(userInvalid);
-
     }
 
     @Test(dependsOnMethods = "testCreateUser")

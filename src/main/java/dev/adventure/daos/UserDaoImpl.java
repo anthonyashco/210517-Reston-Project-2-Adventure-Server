@@ -2,7 +2,6 @@ package dev.adventure.daos;
 
 import dev.adventure.entities.User;
 import dev.adventure.utils.ConnectionUtil;
-import org.postgresql.util.PSQLException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -88,9 +87,8 @@ public class UserDaoImpl implements UserDao {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             List<User> userList = new ArrayList<>();
-
+            User user = new User();
             while (rs.next()) {
-                User user = new User();
                 user.setId(rs.getInt("id"));
                 user.setOccupation(rs.getString("occupation"));
                 user.setName(rs.getString("user_name"));
@@ -110,7 +108,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User updateUser(User user) {
         try (Connection connection = ConnectionUtil.createConnection()) {
-            String sql = "update \"public\".user set occupation=?, user_name=?, username=?, passwordhash=?, passwordsalt=?, plan_id=? where id=?";
+            String sql = "update \"public\".user set occupation=?, user_name=?, username=?, passwordhash=?, passwordsalt=?, plan_id=?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, user.getOccupation());
             ps.setString(2, user.getName());
@@ -118,7 +116,6 @@ public class UserDaoImpl implements UserDao {
             ps.setString(4, user.getPasswordHash());
             ps.setString(5, user.getPasswordSalt());
             ps.setInt(6, user.getPlanId());
-            ps.setInt(7,user.getId());
 
             // returns the row index or 0 for failure
             ps.executeUpdate();
@@ -136,6 +133,7 @@ public class UserDaoImpl implements UserDao {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
             ps.execute();
+
             return true;
 
         } catch (SQLException throwables) {

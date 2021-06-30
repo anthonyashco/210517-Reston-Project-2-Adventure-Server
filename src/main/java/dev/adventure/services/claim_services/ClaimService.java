@@ -10,4 +10,7 @@ public interface ClaimService {
     public Claim registerClaim(Claim claim);
 
     public ArrayList<Claim> retriveAllClaims();
+
+    public ArrayList<Claim> getAllClaimsByUserId(int user_id);
+
 }
