@@ -54,6 +54,8 @@ public class App {
 
         app.post("/users", userController.createUser);
 
+        app.put("/users/:id/plans/:pid", userController.updatePlan);
+
         app.start();
 
     };
