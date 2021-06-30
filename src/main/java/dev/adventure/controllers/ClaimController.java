@@ -59,4 +59,19 @@ public class ClaimController {
             ctx.status(404);
         }
     };
+
+    public Handler getAllClaimsByUserId = (ctx) -> {
+        try {
+            int user_id = Integer.parseInt(ctx.pathParam("user_id"));
+            ArrayList<Claim> claims = this.claimService.getAllClaimsByUserId(user_id);
+            if (claims == null || claims.size()==0) {
+                throw new ResourceNotFound("There is not any claim exsist in data base at this moment by this user_id: " + user_id);
+            }
+            String claimJSON = this.gson.toJson(claims);
+            ctx.result(claimJSON);
+        } catch (ResourceNotFound resourceNotFound) {
+            ctx.result(resourceNotFound.getMessage());
+            ctx.status(404);
+        }
+    };
 }

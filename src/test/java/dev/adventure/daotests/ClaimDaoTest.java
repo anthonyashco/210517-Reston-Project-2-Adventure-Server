@@ -95,4 +95,38 @@ public class ClaimDaoTest {
       Assert.assertTrue(claimDao.getAllClaims() != null);
    }
 
+   @Test(priority = 3)
+   void getAllClaimById() {
+
+      int m= claimDao.getAllClaimsByUserId(22).size();
+      Assert.assertEquals(m-n,3);
+      Assert.assertTrue(claims.contains(claimTest1));
+      Assert.assertTrue(claims.contains(claimTest2));
+      Assert.assertTrue(claims.contains(claimTest3));
+
+      boolean test1=false;
+      boolean test2=false;
+      boolean test3=false;
+
+      for (Claim claim:claimDao.getAllClaimsByUserId(22)){
+
+         if (claim.getId()==claimTest1.getId() && claim.getUserId()==22){
+
+            test1=true;
+         }
+         if (claim.getId()==claimTest2.getId() && claim.getUserId()==22){
+
+            test2=true;
+         }
+         if (claim.getId()==claimTest3.getId() && claim.getUserId()==22){
+
+            test3=true;
+         }
+      }
+      Assert.assertTrue(test1 && test2 && test3);
+      Assert.assertTrue(claimDao.getAllClaimsByUserId(0).size() == 0);
+      Assert.assertTrue(claimDao.getAllClaimsByUserId(-8).size() == 0);
+   }
+
+
 }
