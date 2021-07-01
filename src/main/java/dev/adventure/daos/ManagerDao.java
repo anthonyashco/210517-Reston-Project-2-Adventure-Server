@@ -10,6 +10,8 @@ public interface ManagerDao {
 
     Manager selectManagerByID(int managerID);
 
+    Manager selectManagerByUsername(String username);
+
     List<Manager> getAllManagers();
 
     Manager updateManager(Manager manager);

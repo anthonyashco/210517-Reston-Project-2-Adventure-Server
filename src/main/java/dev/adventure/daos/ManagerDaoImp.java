@@ -51,6 +51,28 @@ public class ManagerDaoImp implements ManagerDao{
     }
 
     @Override
+    public Manager selectManagerByUsername(String username) {
+        try (Connection connection = ConnectionUtil.createConnection()) {
+            String sql = "select * from managers where username = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            Manager manager = new Manager();
+            manager.setId(rs.getInt("id"));
+            manager.setName(rs.getString("name"));
+            manager.setUsername(rs.getString("username"));
+            manager.setPasswordHash(rs.getString("password_hash"));
+            manager.setPasswordSalt(rs.getString("password_salt"));
+            return manager;
+
+        } catch (SQLException m) {
+            m.printStackTrace();
+            throw new EntityNotFoundException("There was an error finding the manager");
+        }
+    }
+
+    @Override
     public List<Manager> getAllManagers() {
         try (Connection connection = ConnectionUtil.createConnection()){
             String sql = "select * from managers";

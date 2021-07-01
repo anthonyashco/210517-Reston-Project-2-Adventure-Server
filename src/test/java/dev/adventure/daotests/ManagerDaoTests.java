@@ -86,5 +86,11 @@ public class ManagerDaoTests {
         Assert.assertTrue(managerDao.deleteManagerByID(1));
     }
 
+    @Test(priority = 6)
+    void selectManagerByUsername(){
+        Manager selectedManager = managerDao.selectManagerByUsername("username2");
+        Assert.assertEquals(selectedManager.getUsername(), "username2");
+    }
+
 }
 
