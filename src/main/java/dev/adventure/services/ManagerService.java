@@ -10,10 +10,14 @@ public interface ManagerService {
 
     Manager getManagerByID(int managerID);
 
+    Manager getManagerByUsername(String username);
+
     List<Manager> getAllManagers();
 
     Manager updateManger(Manager manager);
 
     boolean deleteManagerByID(int managerID);
+
+    int loginManager(String username, String password);
 
 }

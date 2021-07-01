@@ -54,6 +54,8 @@ public class App {
 
         app.post("/managers", managerController.createManager);
 
+        app.post("/login/managers", managerController.loginManager);
+
         app.get("/managers/:id", managerController.getManagerByID);
 
         app.get("/managers", managerController.getAllManagers);

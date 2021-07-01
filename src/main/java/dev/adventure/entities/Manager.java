@@ -20,6 +20,8 @@ public class Manager implements Comparable<Manager>{
         this.passwordSalt = passwordSalt;
     }
 
+
+
     public int getId() {
         return id;
     }

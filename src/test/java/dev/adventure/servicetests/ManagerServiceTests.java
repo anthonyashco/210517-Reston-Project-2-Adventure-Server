@@ -7,6 +7,8 @@ import dev.adventure.exceptions.EntityNotFoundException;
 import dev.adventure.services.ManagerService;
 import dev.adventure.services.ManagerServiceImp;
 import dev.adventure.utils.ConnectionUtil;
+import dev.adventure.utils.Password;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -68,6 +70,42 @@ public class ManagerServiceTests {
     @Test(priority = 4, expectedExceptions = {EntityNotFoundException.class}, expectedExceptionsMessageRegExp = "There was an error finding the manager")
     void deleteManagerFail(){
         managerService.deleteManagerByID(badManager.getId());
+    }
+
+    @Test(priority = 5, expectedExceptions = {EntityNotFoundException.class}, expectedExceptionsMessageRegExp = "There was an error finding the manager")
+    void getManagerByUsernameFail(){
+        managerService.getManagerByUsername("does not exist");
+    }
+
+    @Test(priority = 6)
+    void loginManager(){
+        String[] hasSalt= Password.hashGriddle("password");
+        Manager manager = new Manager();
+        manager.setId(0);
+        manager.setName("test");
+        manager.setUsername("username");
+        manager.setPasswordHash(hasSalt[0]);
+        manager.setPasswordSalt(hasSalt[1]);
+        System.out.println(manager);
+        managerService.createManager(manager);
+        int managerID = managerService.loginManager("username", "password");
+        System.out.println(managerID);
+        Assert.assertTrue(managerID > 0);
+    }
+
+    @Test(priority = 7, expectedExceptions = {EntityNotFoundException.class}, expectedExceptionsMessageRegExp = "Invalid username or password")
+    void loginManagerBadUsername(){
+        managerService.loginManager("uh oh spaghettios", "password");
+    }
+
+    @Test(priority = 8, expectedExceptions = {EntityNotFoundException.class}, expectedExceptionsMessageRegExp = "Invalid username or password")
+    void loginManagerBadPassword(){
+        managerService.loginManager("username", "I can't believe it's not butter");
+    }
+
+    @Test(priority = 9, expectedExceptions = {EntityNotFoundException.class}, expectedExceptionsMessageRegExp = "Invalid username or password")
+    void loginManagerBadUsernameAndPassword(){
+        managerService.loginManager("uh oh spaghettios", "I can't believe it's not butter");
     }
 
 }

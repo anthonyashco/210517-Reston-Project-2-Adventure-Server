@@ -20,6 +20,21 @@ public class ManagerController {
         this.managerService = managerService;
     }
 
+    public Handler loginManager = ctx ->{
+        String body = ctx.body();
+        Gson gson = new Gson();
+        Map<String, String> credentials = gson.fromJson(body, Map.class);
+        try {
+            int id = this.managerService.loginManager(credentials.get("username"), credentials.get("password"));
+            ctx.result("{\"id\":"+id+"}");
+            ctx.status(200);
+        }catch (EntityNotFoundException e){
+            e.printStackTrace();
+            ctx.result("{\"id\":"+(-1)+"}");
+            ctx.status(404);
+        }
+    };
+
     public Handler createManager = ctx->{
         Gson gson = new Gson();
         Map<String, String> password = gson.fromJson(ctx.body(), Map.class);
