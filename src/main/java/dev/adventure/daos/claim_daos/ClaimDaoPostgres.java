@@ -1,7 +1,9 @@
 package dev.adventure.daos.claim_daos;
 
 import dev.adventure.entities.Claim;
+import dev.adventure.entities.Manager;
 import dev.adventure.entities.Plan;
+import dev.adventure.exceptions.EntityNotFoundException;
 import dev.adventure.exceptions.ResourceNotFound;
 import dev.adventure.utils.ConnectionUtil;
 
@@ -80,7 +82,7 @@ public class ClaimDaoPostgres implements ClaimDao {
                 claims.add(claim);
             }
             if (claims.size() == 0) {
-                throw new ResourceNotFound("There is not any claim exsist in data base at this moment. ");
+                throw new ResourceNotFound("There are no claims in the database at this moment.");
             }
             return claims;
         } catch (SQLException sqlException) {
@@ -88,6 +90,43 @@ public class ClaimDaoPostgres implements ClaimDao {
             return null;
         }
 
+    }
+
+    @Override
+    public Claim getClaimByID(int claimID) {
+        try (Connection connection = ConnectionUtil.createConnection()){
+            String sql = "select * from claim where id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, claimID);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            Claim claim = new Claim();
+            claim.setId(rs.getInt("id"));
+            claim.setDate(rs.getLong("claim_date"));
+            claim.setAmount(rs.getFloat("amount"));
+            claim.setReason(rs.getString("reason"));
+            claim.setStatus(rs.getString("status"));
+            claim.setUserId(rs.getInt("user_id"));
+            return claim;
+        } catch (SQLException m) {
+            m.printStackTrace();
+            throw new EntityNotFoundException("There was an error finding the claim");
+        }
+    }
+
+    @Override
+    public Claim updateClaim(Claim claim) {
+        try (Connection connection = ConnectionUtil.createConnection()){
+            String sql = "update claim set status = ? where id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, claim.getStatus());
+            ps.setInt(2, claim.getId());
+            ps.executeUpdate();
+            return claim;
+        } catch (SQLException m){
+            m.printStackTrace();
+            throw new EntityNotFoundException("Claim information could not be updated at this time");
+        }
     }
 
 }

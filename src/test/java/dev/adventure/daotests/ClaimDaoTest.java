@@ -6,14 +6,14 @@ import dev.adventure.daos.claim_daos.ClaimDao;
 import dev.adventure.daos.claim_daos.ClaimDaoPostgres;
 import dev.adventure.entities.Claim;
 
-import org.checkerframework.checker.units.qual.A;
+
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 
 public class ClaimDaoTest {
@@ -124,6 +124,25 @@ public class ClaimDaoTest {
          }
       }
       Assert.assertTrue(test1 && test2 && test3);
+
+   }
+
+   @Test(priority = 4)
+   void selectClaimByID(){
+      Claim selectedClaim = claimDao.getClaimByID(197);
+      System.out.println(selectedClaim);
+      Assert.assertEquals(selectedClaim.getId(), 197);
+   }
+
+   @Test(priority = 5)
+   void updateClaim(){
+      Claim updateClaim = claimDao.getClaimByID(197);
+      System.out.println(updateClaim);
+      updateClaim.setStatus("Accepted");
+      claimDao.updateClaim(updateClaim);
+      updateClaim = claimDao.getClaimByID(197);
+      System.out.println(updateClaim);
+      Assert.assertEquals(updateClaim.getStatus(), "Accepted");
 
    }
 

@@ -7,8 +7,9 @@ import java.util.List;
 
 public interface ClaimDao {
 
-    public Claim createClaim(Claim claim);
-
-    public ArrayList<Claim> getAllClaims();
-    public ArrayList<Claim> getAllClaimsByUserId(int user_id);
+    Claim createClaim(Claim claim);
+    ArrayList<Claim> getAllClaims();
+    ArrayList<Claim> getAllClaimsByUserId(int user_id);
+    Claim getClaimByID(int claimID);
+    Claim updateClaim(Claim claim);
 }
