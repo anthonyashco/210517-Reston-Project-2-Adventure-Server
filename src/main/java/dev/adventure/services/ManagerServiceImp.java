@@ -4,6 +4,7 @@ import dev.adventure.daos.ManagerDao;
 import dev.adventure.entities.Manager;
 import dev.adventure.entities.User;
 import dev.adventure.exceptions.EntityNotFoundException;
+import dev.adventure.exceptions.InvalidUsernameException;
 import dev.adventure.utils.Password;
 
 import java.sql.SQLException;
@@ -20,6 +21,7 @@ public class ManagerServiceImp implements ManagerService{
     @Override
     public Manager createManager(Manager manager) {
         return managerDao.createManager(manager);
+
     }
 
     @Override

@@ -3,6 +3,7 @@ package dev.adventure.controllers;
 import com.google.gson.Gson;
 import dev.adventure.entities.Manager;
 import dev.adventure.exceptions.EntityNotFoundException;
+import dev.adventure.exceptions.InvalidUsernameException;
 import dev.adventure.services.ManagerService;
 import dev.adventure.utils.Password;
 import io.javalin.http.Handler;
@@ -36,16 +37,21 @@ public class ManagerController {
     };
 
     public Handler createManager = ctx->{
-        Gson gson = new Gson();
-        Map<String, String> password = gson.fromJson(ctx.body(), Map.class);
-        String[] passwordHash = Password.hashGriddle(password.get("password"));
-        Manager manager = gson.fromJson(ctx.body(), Manager.class);
-        manager.setPasswordHash(passwordHash[0]);
-        manager.setPasswordSalt(passwordHash[1]);
-        managerService.createManager(manager);
-        String managerJSON = gson.toJson(manager);
-        ctx.result(managerJSON);
-        ctx.status(201);
+        try {
+            Gson gson = new Gson();
+            Map<String, String> password = gson.fromJson(ctx.body(), Map.class);
+            String[] passwordHash = Password.hashGriddle(password.get("password"));
+            Manager manager = gson.fromJson(ctx.body(), Manager.class);
+            manager.setPasswordHash(passwordHash[0]);
+            manager.setPasswordSalt(passwordHash[1]);
+            managerService.createManager(manager);
+            String managerJSON = gson.toJson(manager);
+            ctx.result(managerJSON);
+            ctx.status(201);
+        } catch (InvalidUsernameException e){
+            ctx.result(e.getMessage());
+            ctx.status(400);
+        }
     };
 
     public Handler getAllManagers = ctx->{
