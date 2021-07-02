@@ -4,6 +4,7 @@ import dev.adventure.daos.ManagerDao;
 import dev.adventure.daos.ManagerDaoImp;
 import dev.adventure.entities.Manager;
 import dev.adventure.exceptions.EntityNotFoundException;
+import dev.adventure.exceptions.InvalidUsernameException;
 import dev.adventure.services.ManagerService;
 import dev.adventure.services.ManagerServiceImp;
 import dev.adventure.utils.ConnectionUtil;
@@ -28,8 +29,8 @@ public class ManagerServiceTests {
         try (Connection connection = ConnectionUtil.createConnection()){
             String sql = "drop table if exists managers;\n" +
                     "create table managers(\n" +
-                    "\tid serial,\n" +
-                    "\t\"name\" varchar(50),\n" +
+                    "\tid serial primary key,\n" +
+                    "\t\"name\" varchar(50) unique,\n" +
                     "\tusername varchar(50),\n" +
                     "\tpassword_hash varchar(200),\n" +
                     "\tpassword_salt varchar(200)\n" +
@@ -106,6 +107,13 @@ public class ManagerServiceTests {
     @Test(priority = 9, expectedExceptions = {EntityNotFoundException.class}, expectedExceptionsMessageRegExp = "Invalid username or password")
     void loginManagerBadUsernameAndPassword(){
         managerService.loginManager("uh oh spaghettios", "I can't believe it's not butter");
+    }
+
+    @Test(priority = 10, expectedExceptions = {InvalidUsernameException.class}, expectedExceptionsMessageRegExp = "Invalid Username")
+    void createManagerInvalidUsername(){
+        Manager manager1 = new Manager(0,"name","username","hash", "salt");
+        System.out.println(managerService.createManager(manager1));
+        System.out.println(managerService.createManager(manager1));
     }
 
 }

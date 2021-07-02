@@ -24,9 +24,9 @@ public class ManagerDaoTests {
         try (Connection connection = ConnectionUtil.createConnection()){
             String sql = "drop table if exists managers;\n" +
                     "create table managers(\n" +
-                    "\tid serial,\n" +
+                    "\tid serial primary key,\n" +
                     "\t\"name\" varchar(50),\n" +
-                    "\tusername varchar(50),\n" +
+                    "\tusername varchar(50) unique,\n" +
                     "\tpassword_hash varchar(200),\n" +
                     "\tpassword_salt varchar(200)\n" +
                     ")";
@@ -65,7 +65,7 @@ public class ManagerDaoTests {
         Manager manager2 = new Manager(0,"name2","username2","hash", "salt");
         Manager manager3 = new Manager(0,"name3","username3","hash", "salt");
         managerDao.createManager(manager2);
-        managerDao.createManager(manager2);
+        managerDao.createManager(manager3);
         List<Manager> managers = managerDao.getAllManagers();
         System.out.println(managers.size());
         Assert.assertTrue(managers.size() >= 3);

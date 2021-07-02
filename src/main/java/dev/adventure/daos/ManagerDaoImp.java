@@ -2,6 +2,7 @@ package dev.adventure.daos;
 
 import dev.adventure.entities.Manager;
 import dev.adventure.exceptions.EntityNotFoundException;
+import dev.adventure.exceptions.InvalidUsernameException;
 import dev.adventure.utils.ConnectionUtil;
 
 import java.sql.*;
@@ -25,7 +26,7 @@ public class ManagerDaoImp implements ManagerDao{
             return manager;
         } catch (SQLException m){
             m.printStackTrace();
-            throw new EntityNotFoundException("There was an error finding the manager");
+            throw new InvalidUsernameException("Invalid Username");
         }
     }
 
