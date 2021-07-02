@@ -25,7 +25,7 @@ public class ManagerDaoImp implements ManagerDao{
             return manager;
         } catch (SQLException m){
             m.printStackTrace();
-            return null;
+            throw new EntityNotFoundException("There was an error finding the manager");
         }
     }
 
