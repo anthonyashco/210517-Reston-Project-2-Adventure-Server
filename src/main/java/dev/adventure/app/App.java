@@ -42,6 +42,8 @@ public class App {
 
         app.post("/claims",claimController.createClaim);
 
+        app.post("/claims/managers/:id", claimController.updateClaim);
+
         app.post("plans", planController.createPlan);
 
         app.get("/plans", planController.getAllPlans);

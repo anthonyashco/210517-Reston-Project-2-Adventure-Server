@@ -7,8 +7,10 @@ import java.util.List;
 
 public interface ClaimService {
 
-    public Claim registerClaim(Claim claim);
+    Claim registerClaim(Claim claim);
+    ArrayList<Claim> retriveAllClaims();
+    ArrayList<Claim> getAllClaimsByUserId(int user_id);
+    Claim getClaimByID(int claimID);
+    Claim updateClaim(Claim claim);
 
-    public ArrayList<Claim> retriveAllClaims();
-    public ArrayList<Claim> getAllClaimsByUserId(int user_id);
 }

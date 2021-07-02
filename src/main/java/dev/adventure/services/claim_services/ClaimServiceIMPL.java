@@ -29,5 +29,15 @@ public class ClaimServiceIMPL implements ClaimService {
         return this.claimDao.getAllClaimsByUserId(user_id);
     }
 
+    @Override
+    public Claim getClaimByID(int claimID) {
+        return this.claimDao.getClaimByID(claimID);
+    }
+
+    @Override
+    public Claim updateClaim(Claim claim) {
+        return this.claimDao.updateClaim(claim);
+    }
+
 
 }
