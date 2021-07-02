@@ -2,6 +2,7 @@ package dev.adventure.daos.claim_daos;
 
 import dev.adventure.entities.Claim;
 import dev.adventure.entities.Plan;
+import dev.adventure.exceptions.ResourceNotFound;
 import dev.adventure.utils.ConnectionUtil;
 
 import java.sql.*;
@@ -77,6 +78,9 @@ public class ClaimDaoPostgres implements ClaimDao {
                         rs.getInt("user_id")
                 );
                 claims.add(claim);
+            }
+            if (claims.size() == 0) {
+                throw new ResourceNotFound("There is not any claim exsist in data base at this moment. ");
             }
             return claims;
         } catch (SQLException sqlException) {
