@@ -71,18 +71,4 @@ public class PlanDaoTests {
 
     }
 
-    @Test(priority=4)
-    void updatePlan(){
-        testPlan.setType("Top-Tier");
-        planDao.updatePlan(testPlan);
-        Plan updatedPlan = planDao.getPlanByID(1);
-        Assert.assertEquals(updatedPlan.getType(),"Top-Tier");
-    }
-
-    @Test(priority=5)
-    void deletePlan(){
-        boolean planDeleted = planDao.deletePlanByID(1);
-        Assert.assertTrue(planDeleted);
-    }
-
 }

@@ -71,7 +71,6 @@ public class PlanDaoImp implements PlanDao {
                 plans.add(plan);
             }
             if (plans.size() == 0){
-                System.out.println("There was an error trying to get the plans");
                 throw new EntityNotFoundException("There was an error trying to get the plans");
             }
             return plans;
