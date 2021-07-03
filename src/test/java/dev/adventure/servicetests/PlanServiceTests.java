@@ -58,17 +58,12 @@ public class PlanServiceTests {
         planService.getPlanByID(99999);
     }
 
-    @Test(priority = 2, expectedExceptions = {EntityNotFoundException.class}, expectedExceptionsMessageRegExp = "There was an error trying to get the plans")
-    void getAllPlansFail(){
-        planService.getAllPlans();
-    }
-
-    @Test(priority = 3, expectedExceptions = {EntityNotFoundException.class}, expectedExceptionsMessageRegExp = "There was an error trying to get the plan")
+    @Test(priority = 2, expectedExceptions = {EntityNotFoundException.class}, expectedExceptionsMessageRegExp = "There was an error trying to get the plan")
     void updatePlanFail(){
         planService.updatePlan(badPlan);
     }
 
-    @Test(priority = 4, expectedExceptions = {EntityNotFoundException.class}, expectedExceptionsMessageRegExp = "There was an error trying to get the plan")
+    @Test(priority = 3, expectedExceptions = {EntityNotFoundException.class}, expectedExceptionsMessageRegExp = "There was an error trying to get the plan")
     void deletePlanFail(){
         planService.deletePlanByID(badPlan.getPlanID());
     }

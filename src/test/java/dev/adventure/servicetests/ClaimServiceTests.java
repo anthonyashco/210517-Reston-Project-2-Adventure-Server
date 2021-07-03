@@ -49,15 +49,15 @@ public class ClaimServiceTests {
 
 
 
-    @Test(expectedExceptions = ResourceNotFound.class, expectedExceptionsMessageRegExp ="There is not any claim exsist in data base at this moment. ")
+    @Test(expectedExceptions = ResourceNotFound.class, expectedExceptionsMessageRegExp ="There are no claims in the database at this moment.")
     void testInvaGetAllClaimsById1(){claimService.getAllClaimsByUserId(0);}
 
-    @Test(expectedExceptions = ResourceNotFound.class, expectedExceptionsMessageRegExp ="There is not any claim exsist in data base at this moment. ")
+    @Test(expectedExceptions = ResourceNotFound.class, expectedExceptionsMessageRegExp ="There are no claims in the database at this moment.")
     void testInvaGetAllClaimsById2(){claimService.getAllClaimsByUserId(-10);}
 
-    @Test(expectedExceptions = ResourceNotFound.class, expectedExceptionsMessageRegExp ="There is not any claim exsist in data base at this moment. ")
+    @Test(expectedExceptions = ResourceNotFound.class, expectedExceptionsMessageRegExp ="There are no claims in the database at this moment.")
     void testInvaGetAllClaimsById3(){claimService.getAllClaimsByUserId(999999999);}
 
-    @Test(expectedExceptions = ResourceNotFound.class, expectedExceptionsMessageRegExp ="There is not any claim exsist in data base at this moment. ")
+    @Test(expectedExceptions = ResourceNotFound.class, expectedExceptionsMessageRegExp ="There are no claims in the database at this moment.")
     void testInvaGetAllClaimsById4(){claimService.getAllClaimsByUserId(-1000);}
 }

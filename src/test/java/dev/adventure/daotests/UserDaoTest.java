@@ -53,14 +53,6 @@ public class UserDaoTest {
         Assert.assertEquals(testUser.getName(),"UpdateTest");
     }
 
-    @Test()
-    void testUpdateUserInvalid(){
-        User userInvalid = new User(0, "fake", "illegitimate", "fake", "illegitimate", "Wrongerino", 0);
-        userInvalid = userDao.updateUser(userInvalid);
-        Assert.assertNull(userInvalid);
-
-    }
-
     @Test(dependsOnMethods = "testCreateUser")
     void testGetAllUsers(){
         userDao.createUser(testUser2);
